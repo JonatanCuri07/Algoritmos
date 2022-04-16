@@ -1,0 +1,3 @@
+Edad: 100
+Sexo: S
+Peso: 15.8
