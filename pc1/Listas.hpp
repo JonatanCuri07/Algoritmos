@@ -1,5 +1,3 @@
-#include <iostream>
-#include <iterator>
 #include <algorithm>
 #include <vector>
 using namespace std;
@@ -119,7 +117,7 @@ public:
         
     }
 
-    T encontrar(int p){
+   T encontrar(int p){
         int pos=0;
         CNodo<T>* nuevo = inicio;
         while (nuevo!=nullptr)
@@ -145,19 +143,3 @@ public:
         
     }
 };
-
-int main(){
-    CListaEnlazada<int>* o = new CListaEnlazada<int>();
-    o->agregaInicio(15);
-    o->agregaFinal(20);
-    o->agregaFinal(25);
-    o->agregaFinal(30);
-    o->agregaFinal(35);
-    o->show();
-    cout<<"\n";
-    o->agregarPos(1,23);
-    o->show();
-    cout<<"\n"<<o->getTamano();
-    cout<<"\n\nEncontrar en la posición: ";
-    cout<<"\n"<<o->encontrar(3)<<"\n";
-}
