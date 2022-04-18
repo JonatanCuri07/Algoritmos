@@ -10,7 +10,10 @@ class Agencia
 	Lista<Chofer> *chofer_registrados;
 	Lista<Pasajero> *pasajeros_registrados;
 public:
-	Agencia();
+	Agencia(){
+		this->chofer_registrados = new Lista<Chofer>();
+		this->pasajeros_registrados = new Lista<Pasajero>();
+	};
 	Agencia(string l)
 	{
 		this->lugar = l;
@@ -59,6 +62,20 @@ public:
 			cout<<"No hay choferes"<<endl;
 		}
 		
+	}
+
+	void Exportar_Pas(){
+		auto pas_tostring= [](Pasajero p){
+		return p.get_nombre()+" "+to_string(p.get_dni());
+		};
+		pasajeros_registrados->Exportar(pas_tostring);
+	}
+
+	void Exportar_Chofer(){
+		auto chofer_tostring= [](Chofer c){
+		return c.get_nombre()+" "+c.get_placa()+" "+c.get_coche()+" "+c.get_distrito();
+		};
+		chofer_registrados->Exportar_chofer(chofer_tostring);
 	}
 
 	void show_chofer_dist(string dist){

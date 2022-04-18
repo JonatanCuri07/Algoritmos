@@ -27,7 +27,7 @@ class Pasajero {
 		{
 			if(l_viaje->size() != 0)
 			{
-					cout<<"\nChofer\t"<<"\tCarro\t"<<"\tPlaca\t"<<"\Partida"<<"\tDestino\t";
+					cout<<"\nChofer\t"<<"\tCarro\t"<<"\tPlaca\t"<<"\tPartida\t"<<"\tDestino\t";
 				for(int i = 0;i<l_viaje->size();i++)
 				{
 					cout<<"\n"<<l_viaje->get(i).get_chofer().get_nombre();

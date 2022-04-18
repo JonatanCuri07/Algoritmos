@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <functional>
+#include <fstream>
 using namespace std;
 
 template<typename T>
@@ -171,6 +172,32 @@ public:
             crit(aux->elem);
             aux = aux->next;
         }
+    }
+
+    void Exportar(std::function<string(T)> crit)
+    {
+        ofstream o;
+        o.open("pasajeros.txt");
+        Nodo* aux = head;
+       for (int i = 0; i < len; i++)
+        {
+            o<<crit(aux->elem)<<"\n";
+            aux = aux->next;
+        }
+        o.close();
+    }
+
+     void Exportar_chofer(std::function<string(T)> crit)
+    {
+        ofstream o;
+        o.open("choferes.txt");
+        Nodo* aux = head;
+       for (int i = 0; i < len; i++)
+        {
+            o<<crit(aux->elem)<<"\n";
+            aux = aux->next;
+        }
+        o.close();
     }
 };
 

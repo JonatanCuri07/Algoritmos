@@ -14,7 +14,9 @@ char menu()
     cout<<"4: Mostrar Pasajeros\n";
     cout<<"5: Mostrar Viajes\n";
     cout<<"6: Pedir taxi\n";
-    cout<<"7: Salir\n";
+	cout<<"7: Exportar pasajeros al txt\n";
+	cout<<"8: Exportar choferes al txt\n";
+    cout<<"9: Salir\n";
     cin>>tecla;
     return tecla;
 
@@ -23,7 +25,7 @@ char menu()
 
 int main()
 {
-	Agencia *agent = new Agencia("San Miguel");
+	Agencia *agent = new Agencia();
 	string nombre,placa,coche,distrito;
 	ll dni;
 	int pos;
@@ -94,6 +96,12 @@ int main()
 					cout<<"\n1 para regresar: ";cin>>stop;		
 				break;
 			case '7':
+				agent->Exportar_Pas();
+				break;
+			case '8':
+				agent->Exportar_Chofer();
+				break;
+			case '9':
 				flag=true;
 				break;
 			default:
