@@ -10,23 +10,29 @@ void exchange(T *a, T *b){
 
 template <typename T>
 void bubblesort(T conjunto[], int n){
-    int i,j;
+    bool ordenado;
     for (int i = 0; i < n-1; i++)
     {
-        for (int j = i+1; j < n; j++)
+        ordenaod = true;
+        for (int j = 0; j < n-i-1; j++)
         {
-            if (conjunto[i]>conjunto[j])
+            if (conjunto[j]>conjunto[j+1])
             {
-                exchange(&conjunto[i],&conjunto[j]);            
+                exchange(&conjunto[j],&conjunto[j+1]);         
+                ordenado = false;   
             }
+            if (ordenado)
+                break;
+            
         }
+        //desordenados
         int p;
-        for (p = 0; p <= i; p++)
+        for (p = 0; p <= n-i-1; p++)
         {
             cout<<conjunto[p]<< " ";
         }
         cout<<" |";
-        //desordenados
+        //ordenados
         for (int q = p; q < n; q++)
         {
             cout<<conjunto[q]<< " ";
@@ -37,7 +43,7 @@ void bubblesort(T conjunto[], int n){
 
 int main(){
     //desordenamiento
-    int baraja[] = {10,4,12,6,43};
+    int baraja[] = {10,4,12,6,43,13,25,33,54,2,5};
     int t = sizeof(baraja)/sizeof(baraja[0]);
     
     bubblesort(baraja,t);
