@@ -7,7 +7,7 @@ class Chofer{
 	private:
 		string nombre;
 		bool disponible;
-		Lista<float> list_cal;
+        float cal;
 		string placa;
 		string distrito;
 		string coche;
@@ -19,7 +19,6 @@ class Chofer{
 			this->placa=p;
 			this->distrito=dist;
 			this->coche=coche;
-			this->list_cal=Lista<float>();
 		}
 	void set_disponible(bool disponible){
         this->disponible=disponible;
@@ -60,17 +59,19 @@ class Chofer{
     string get_coche(){
         return coche;
     }
-	void add_cal(float t){
-		list_cal.addlast(t);
-	}
 	
 	float get_prom_cal(){
-		float aux = 0.0f;
-		for(int i=0;i<list_cal.size();i++){
-			aux +=list_cal.get(i);
-		}
-		return (aux/list_cal.size());
+        if (cal>0)
+        {
+            return cal;
+        }else return 0;
+        
 	}
+
+    void set_cal(float c)
+    {
+        this->cal=c;
+    }
 };
 
 #endif

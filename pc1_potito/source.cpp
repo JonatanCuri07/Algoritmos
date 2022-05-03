@@ -4,7 +4,6 @@
 #include "Headers/Agencia.hpp"
 using namespace std;
 template<typename T>
-//just for couting vectors
 ostream& operator<<(ostream& os, vector<T>& vec) {
     os << "[ ";
     for (auto e : vec) {
@@ -46,6 +45,7 @@ int menu()
 
 int main()
 {
+	srand(time(NULL));
 	Agencia *agent = new Agencia();
 	string nombre,placa,coche,distrito;
 	ll dni;
@@ -86,6 +86,7 @@ int main()
 						string chofer_name="";
 						string dist="";
 						string dest="";
+						float cal;
 						bool viaje_creado=false;
 						cout<<"Escoge tu partida: ";cin>>dist;
 						cout<<"Escoge tu destino: ";cin>>dest;
@@ -100,6 +101,9 @@ int main()
 									agent->pasajeros_registrados->front().agregar_viaje(dest,dist, agent->get_chofer(i));
 									cout<<"Se agrego el viaje correctamente\n";
 									viaje_creado=true;
+									cout<<"\nDale una calificación del 1 al 5: ";
+									cin>>cal;
+									agent->chofer_registrados->get(i).set_cal(cal);
 									break;
 								}else
 								{
@@ -123,16 +127,16 @@ int main()
 				agent->Exportar_Chofer();
 				break;
 			case 9:
-			//importar pasajeros
-				agent->Exportar_Pas();
+				agent->Importar_Pas();
+				cout<<"\n1 para regresar: ";cin>>stop;
 				break;
 			case 10:
-			//importar choferes
-				agent->Exportar_Chofer();
+				agent->Importar_Chofer();
+				cout<<"\n1 para regresar: ";cin>>stop;
 				break;
 			case 11:
-			//mostrar por criterio de estrellas
-				flag=true;
+				agent->mostrar_ranking();
+				cout<<"\n1 para regresar: ";cin>>stop;
 				break;
 			case 12:
 				flag=true;

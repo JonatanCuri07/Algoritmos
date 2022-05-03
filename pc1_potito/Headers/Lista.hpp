@@ -5,6 +5,7 @@
 #include <vector>
 #include <functional>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 template<typename T>
@@ -40,27 +41,18 @@ public:
         return len == 0;
     }
     
-    void addfirst(T elem)
-    {
-        tail= head= new Node(elem,head);
-        len++;
-    }
-    void addpos(T elem,int pos)
-    {
-        if (pos<0 || pos>len)
-              return;
-        if (pos == 0)
-              addfirst(elem);
-        else
+    void push_back(T e){
+        if (len==0)
         {
-            Node* aux = new Node(elem);
-			tail->next = aux;
-            len++;
+            head=tail=new Node(e);
+        }else
+        {
+            Node* aux= new Node(e);
+            tail->next=aux;
+            tail=aux;
         }
-    }
-    void addlast(T elem)
-    {
-        addpos(elem, len);
+        
+        len++;
     }
 
     void removefirst()
@@ -129,7 +121,7 @@ public:
         else
             - .0;
     }
-    T get(int pos)
+    T& get(int pos)
     {
         Node* aux = head;
         for (int i = 0; i < pos; i++)
@@ -185,25 +177,20 @@ public:
 	private:
     Node* parition(Node *first, Node *last,const function<bool(T, T)>& f)
     {
-        //Get first node of given linked list
         Node *pivot = first;
         Node *front = first;
-        int temp = 0;
+        T temp;
         while (front != nullptr && front != last)
         {
-            if (f(front->elem < last->elem)){
+            if (f(front->elem,last->elem)){
                 pivot = first;
-                //Swap node elem
                 temp = first->elem;
                 first->elem = front->elem;
                 front->elem = temp;
-                //Visit to next node
                 first = first->next;
             }
-            //Visit to next node
             front = front->next;
         }
-        //Change last node elem to current node
         temp = first->elem;
         first->elem = last->elem;
         last->elem = temp;
@@ -228,13 +215,13 @@ public:
 
 
 	public:
-	void mostrar_con_sort_criterio(const function<void(T)>& criterio = [](T e){std::cout << e << "\n";}){
+	void mostrar_criterio(const function<void(T&)>& criterio = [](T e){std::cout << e << "\n";}){
         Node* aux = head;
         while (aux->next != nullptr) {
-            cout << aux->elem << " ";
+            criterio(aux->elem);
             aux = aux->next;
         }
-        cout << aux->elem << " ";
+        criterio(aux->elem);
     }    
 
     void quick_sort(const function<bool(T, T)>& f = [](T a, T b){ return a > b; }) {

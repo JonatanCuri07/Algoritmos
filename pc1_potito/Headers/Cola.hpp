@@ -51,10 +51,7 @@ class Queue{
 
 		T front()
 		{
-			if(empty())
-				-.0;
-			else
-				return start->v;	
+			return start->v;	
 		} 
 
 		void pop()

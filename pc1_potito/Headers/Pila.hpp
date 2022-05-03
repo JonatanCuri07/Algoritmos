@@ -34,11 +34,9 @@ public:
             --len;
         }
     }
+
     T top() {
-        if (len > 0) {
             return _top->e;
-        }
-        else -.0;
     }
 };
 

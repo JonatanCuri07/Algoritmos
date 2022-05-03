@@ -49,7 +49,7 @@ public:
 	}
 	bool pasajero_empty(){return pasajeros_registrados->empty();}
 	int get_pasajero_size(){return pasajeros_registrados->get_size();}
-	void add_chofer(Chofer c) {chofer_registrados->addfirst(c);}
+	void add_chofer(Chofer c) {chofer_registrados->push_back(c);}
 	void show_chofers()
 	{
 		if(!chofer_registrados->empty())
@@ -81,6 +81,48 @@ public:
 		chofer_registrados->Exportar_chofer(chofer_tostring);
 	}
 
+	void Importar_Pas(){
+		ifstream f("pasajeros.txt");
+		if (!f)
+		{
+			cout<<"No hay datos de pasajero\n";
+			return;
+		}
+		string line;
+		string name;
+		ll dni;
+		int cont=0;
+		while (getline(f,line))
+		{
+			stringstream aux(line);
+			aux>>name>>dni;
+			pasajeros_registrados->push(Pasajero(name,dni));
+			cont++;
+		}
+		cout<<"Se agregaron "<<cont<<" pasajeros";
+	}
+
+	void Importar_Chofer(){
+		ifstream f("choferes.txt");
+		if (!f)
+		{
+			cout<<"No hay datos de pasajero\n";
+			return;
+		}
+		string line;
+		string name,placa,distrito,coche;
+		int cont=0;
+		while (getline(f,line))
+		{
+			stringstream aux(line);
+			aux>>name>>placa>>coche>>distrito;
+			add_chofer(Chofer(name,true,placa,distrito,coche));
+			cont++;
+		}
+		cout<<"Se agregaron "<<cont<<" choferes";
+	}
+
+
 	void show_chofer_dist(string dist){
 		cout<<"NOMBRE\t"<<"Placa\t"<<"Marca\n";
 		chofer_registrados->mostrarCri(
@@ -92,6 +134,28 @@ public:
 					cout<<"\t"<<chofer.get_coche()<<endl;
 				}
 				
+			}
+		);
+	}
+
+	void mostrar_ranking()
+	{
+		chofer_registrados->quick_sort(
+			[](Chofer a,Chofer b){return a.get_prom_cal()>b.get_prom_cal();}
+		);
+		cout<<"\n";
+		cout<< setw(10) << "Nombre" << " "
+      		<< setw(10) << "Carro" << " "
+       		<< setw(10) << "Placa" << " "
+       		<< setw(10) << "Distrito" << " "
+			<< setw(10) << "Estrellas" << "\n\n";
+		chofer_registrados->mostrar_criterio(
+			[](Chofer& a){
+				cout<< setw(10) << a.get_nombre() << " "
+      			<< setw(10) << a.get_coche() << " "
+       			<< setw(10) << a.get_placa() << " "
+       			<< setw(10) << a.get_distrito() << " "
+				<< setw(10) << a.get_prom_cal() << "\n";
 			}
 		);
 	}
