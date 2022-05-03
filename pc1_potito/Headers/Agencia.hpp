@@ -1,13 +1,13 @@
-#ifndef AGENCIA_HPP_
-#define AGENCIA_HPP_
+#ifndef AGENCIA_HPP
+#define AGENCIA_HPP
 #include "Lista.hpp"
 #include "Cola.hpp"
 #include "Chofer.hpp"
 #include "Pasajero.hpp"
 class Agencia
 {
-	string lugar;
 	public:
+	string lugar;
 	Lista<Chofer> *chofer_registrados;
 	Queue<Pasajero> *pasajeros_registrados;
 public:

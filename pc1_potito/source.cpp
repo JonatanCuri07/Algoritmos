@@ -1,7 +1,27 @@
 #include <iostream>
+#include <iomanip>
 #include "Headers/Pasajero.hpp"
 #include "Headers/Agencia.hpp"
 using namespace std;
+template<typename T>
+//just for couting vectors
+ostream& operator<<(ostream& os, vector<T>& vec) {
+    os << "[ ";
+    for (auto e : vec) {
+        os << e << " ";
+    }
+    os << "]";
+    return os;
+}
+ostream& operator<<(ostream& os, Chofer* c) {
+    os << "\n{ "
+       << setw(10) << c->get_nombre() << " "
+       << setw(10) << c->get_coche() << " "
+       << setw(10) << c->get_placa() << " "
+       << setw(10) << c->get_distrito() << " "
+       << " }";
+    return os;
+}
 
 char menu()
 {
@@ -20,7 +40,6 @@ char menu()
     cin>>tecla;
     return tecla;
 }
-
 
 int main()
 {

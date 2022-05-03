@@ -10,22 +10,23 @@ using namespace std;
 template<typename T>
 class Lista
 {
-    struct Nodo
+    struct Node
     {
-        Nodo* next;
+        Node* next;
         T elem;
-        Nodo(T elem, Nodo* next=nullptr):elem(elem), next(next){}
+        Node(T elem, Node* next=nullptr):elem(elem), next(next){}
     };
 private:
-    Nodo*head;
+    Node*head;
+	Node *tail;
     int len;
 public:
-    Lista():head(nullptr), len(0) {}
+    Lista():head(nullptr), len(0),tail(nullptr) {}
     ~Lista() {
-        Nodo* currentNode = this->head;
+        Node* currentNode = this->head;
         while (currentNode)
         {
-            Nodo* aux = currentNode->next;
+            Node* aux = currentNode->next;
             delete currentNode;
             currentNode = aux;
         }
@@ -41,7 +42,7 @@ public:
     
     void addfirst(T elem)
     {
-        head= new Nodo(elem,head);
+        tail= head= new Node(elem,head);
         len++;
     }
     void addpos(T elem,int pos)
@@ -52,12 +53,8 @@ public:
               addfirst(elem);
         else
         {
-            Nodo* aux = head;
-            for (int i = 1; i < pos; i++)
-            {
-                aux = aux->next;
-            }
-            aux->next = new Nodo(elem, aux->next);
+            Node* aux = new Node(elem);
+			tail->next = aux;
             len++;
         }
     }
@@ -70,7 +67,7 @@ public:
     {
         if (len > 0)
         {
-            Nodo* aux = head;
+            Node* aux = head;
             head = head->next;
             delete aux;
             --len;
@@ -84,12 +81,12 @@ public:
             removefirst();
         else
         {
-            Nodo* aux = head;
+            Node* aux = head;
             for (int i = 0; i < pos-1; i++)
             {
                 aux = aux->next;
             }
-            Nodo* aux2 = aux->next;
+            Node* aux2 = aux->next;
             aux->next = aux2->next;
             delete aux2;
             --len;
@@ -111,7 +108,7 @@ public:
     {
         if (pos < 0 || pos >= len)
             return;
-        Nodo* aux = head;
+        Node* aux = head;
         for (int i = 0; i < pos; i++)
         {
             aux = aux->next;
@@ -134,7 +131,7 @@ public:
     }
     T get(int pos)
     {
-        Nodo* aux = head;
+        Node* aux = head;
         for (int i = 0; i < pos; i++)
         {
             aux = aux->next;
@@ -148,25 +145,25 @@ public:
 
     void find(T elem)
     {
-        Nodo* aux = head;
+        Node* aux = head;
         bool found=false;
         for (int i = 0; i < len; i++)
         {
             if (aux->elem == elem)
             {
-                cout<<"El elemento fue encontrado en la posicion: "<< i<<endl;
+                cout<<"El elem fue encontrado en la posicion: "<< i<<endl;
                 found = true;
                 return;
             }
             aux = aux->next;
         }
         if(found==false)
-            cout << "El elemento no fue encontrado"<<endl;
+            cout << "El elem no fue encontrado"<<endl;
     }
 
     void mostrarCri(std::function<void(T)> crit)
     {
-        Nodo* aux = head;
+        Node* aux = head;
        for (int i = 0; i < len; i++)
         {
             crit(aux->elem);
@@ -174,11 +171,10 @@ public:
         }
     }
 
-     void Exportar_chofer(std::function<string(T)> crit)
-    {
+     void Exportar_chofer(std::function<string(T)> crit){
         ofstream o;
         o.open("choferes.txt");
-        Nodo* aux = head;
+        Node* aux = head;
        for (int i = 0; i < len; i++)
         {
             o<<crit(aux->elem)<<"\n";
@@ -186,6 +182,62 @@ public:
         }
         o.close();
     }
+	private:
+    Node* partition(Node *first, Node *last,const function<bool(T, T)>& f)
+    {
+        //Get first node of given linked list
+        Node *pivot = first;
+        Node *front = first;
+        int temp = 0;
+        while (front != nullptr && front != last)
+        {
+            if (f(front->elem < last->elem)){
+                pivot = first;
+                //Swap node elem
+                temp = first->elem;
+                first->elem = front->elem;
+                front->elem = temp;
+                //Visit to next node
+                first = first->next;
+            }
+            //Visit to next node
+            front = front->next;
+        }
+        //Change last node elem to current node
+        temp = first->elem;
+        first->elem = last->elem;
+        last->elem = temp;
+        return pivot;
+    }
+	//_quick_sort para la lista con un criterio(calificacion)
+	void _quick_sort(Node* first, Node* last,const function<bool(T, T)>& f) {
+        if (first == last)
+        {
+            return;
+        }
+        Node *pivot = partition(first, last,f);
+        if (pivot != NULL && pivot->next != NULL)
+        {
+            _quick_sort(pivot->next, last,f);
+        }
+        if (pivot != NULL && first != pivot)
+        {
+            _quick_sort(first, pivot,f);
+        }
+    }
+
+	void mostrar_con_sort_criterio(const function<void(T)>& criterio = [](T e){std::cout << e << "\n";}){
+        Node* aux = head;
+        while (aux->next != nullptr) {
+            cout << aux->elem << " ";
+            aux = aux->next;
+        }
+        cout << aux->elem << " ";
+    }     
+
+    void stars(const function<bool(Tipo, Tipo)>& f = [](Tipo a, Tipo b){ return a > b; }) {
+        _quick_sort(inicio, fin, f);
+    }  
 };
 
 
