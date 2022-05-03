@@ -43,14 +43,6 @@ class Pasajero {
 					cout<<"\t\t"<<p_viaje->top().get_destino();
 					p_viaje->pop();
 				}
-				//IMPORTAR TODOS LOS VIAJES DEL ARCHIVO HACIA LA PILA O(N)
-				/*
-				 for(i<aux_viaje_size){
-					//exportas pichulas
-					Viajes aux = Viaje(lectura de archivos{destino,partica,Chofer});
-					p_viaje->push(aux);
-				 }
-				 */
 			}else{cout<<"No has hecho ningun viaje aun"<<endl;}
 		}
 		

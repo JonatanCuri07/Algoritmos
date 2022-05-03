@@ -38,8 +38,6 @@ public:
 				cout<<"\t\t"<<pasajeros_registrados->front().get_dni()<<endl;
 				pasajeros_registrados->pop();
 			}
-			//tal y como importas a chofer para llenar su stack vas 
-			//a importar a pasajeros_registrados desde tu txt
 		}else {
 			cout<<"No hay pasajeros"<<endl;
 		}

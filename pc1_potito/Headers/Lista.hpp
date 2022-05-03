@@ -228,7 +228,6 @@ public:
 
 
 	public:
-	//mostrar con criterio especialmente calificacion
 	void mostrar_con_sort_criterio(const function<void(T)>& criterio = [](T e){std::cout << e << "\n";}){
         Node* aux = head;
         while (aux->next != nullptr) {
