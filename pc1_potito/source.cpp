@@ -23,9 +23,9 @@ ostream& operator<<(ostream& os, Chofer* c) {
     return os;
 }
 
-char menu()
+int menu()
 {
-	char tecla;
+	int tecla;
 
 	cout<<"\n\tMenu\n";
     cout<<"1: Agregar Pasajero\n";    
@@ -36,7 +36,10 @@ char menu()
     cout<<"6: Pedir taxi\n";
 	cout<<"7: Exportar pasajeros al txt\n";
 	cout<<"8: Exportar choferes al txt\n";
-    cout<<"9: Salir\n";
+    cout<<"9: Importar pasajeros del txt\n";
+	cout<<"10: Importar choferes del txt\n";
+	cout<<"11: Mostrar ranking de estrellas\n";
+	cout<<"12: Salir\n";
     cin>>tecla;
     return tecla;
 }
@@ -52,32 +55,32 @@ int main()
 		{
 			switch(menu())
 			{
-			case '1':
+			case 1:
 				cout<<"\nIngrese el nombre: ";cin>>nombre;
 				cout<<"Ingrese el dni: ";cin>>dni;
 				agent->add_pasajeros(Pasajero(nombre,dni));
 				break;
-			case '2':
+			case 2:
 				cout<<"\nIngrese el nombre: ";cin>>nombre;
 				cout<<"Ingrese la placa: ";cin>>placa;
 				cout<<"Ingrese el coche: ";cin>>coche;
 				cout<<"Ingrese el distrito: ";cin>>distrito;
 				agent->add_chofer(Chofer(nombre,true,placa,distrito,coche));
 				break;
-			case '3':
+			case 3:
 				cout<<"\n";agent->show_chofers();
 				cout<<"1 para regresar: ";cin>>stop;
 				break;
-			case '4':
+			case 4:
 				cout<<"\n";agent->show_pasajeros();
 				cout<<"1 para regresar: ";cin>>stop;
 				break;
-			case '5':
+			case 5:
 				cout<<"Escoja el pasajero a revisar: ";cin>>pos;
 				cout<<"\n";agent->get_pasajero_front().show_viajes();
 				cout<<"\n1 para regresar: ";cin>>stop;
 				break;
-			case '6':
+			case 6:
 				if(!agent->chofer_empty())
 					{
 						string chofer_name="";
@@ -113,13 +116,25 @@ int main()
 					}else{cout<<"No se encuentran choferes"<<endl;}	
 					cout<<"\n1 para regresar: ";cin>>stop;		
 				break;
-			case '7':
+			case 7:
 				agent->Exportar_Pas();
 				break;
-			case '8':
+			case 8:
 				agent->Exportar_Chofer();
 				break;
-			case '9':
+			case 9:
+			//importar pasajeros
+				agent->Exportar_Pas();
+				break;
+			case 10:
+			//importar choferes
+				agent->Exportar_Chofer();
+				break;
+			case 11:
+			//mostrar por criterio de estrellas
+				flag=true;
+				break;
+			case 12:
 				flag=true;
 				break;
 			default:

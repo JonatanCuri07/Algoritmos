@@ -183,7 +183,7 @@ public:
         o.close();
     }
 	private:
-    Node* partition(Node *first, Node *last,const function<bool(T, T)>& f)
+    Node* parition(Node *first, Node *last,const function<bool(T, T)>& f)
     {
         //Get first node of given linked list
         Node *pivot = first;
@@ -215,7 +215,7 @@ public:
         {
             return;
         }
-        Node *pivot = partition(first, last,f);
+        Node *pivot = parition(first, last,f);
         if (pivot != NULL && pivot->next != NULL)
         {
             _quick_sort(pivot->next, last,f);
@@ -226,6 +226,9 @@ public:
         }
     }
 
+
+	public:
+	//mostrar con criterio especialmente calificacion
 	void mostrar_con_sort_criterio(const function<void(T)>& criterio = [](T e){std::cout << e << "\n";}){
         Node* aux = head;
         while (aux->next != nullptr) {
@@ -233,11 +236,11 @@ public:
             aux = aux->next;
         }
         cout << aux->elem << " ";
-    }     
+    }    
 
-    void stars(const function<bool(Tipo, Tipo)>& f = [](Tipo a, Tipo b){ return a > b; }) {
-        _quick_sort(inicio, fin, f);
-    }  
+    void quick_sort(const function<bool(T, T)>& f = [](T a, T b){ return a > b; }) {
+        _quick_sort(head, tail, f);
+    }
 };
 
 
